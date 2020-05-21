@@ -7,6 +7,7 @@
   },
   "type": "module",
   "main": "index.mjs",
+  "exports": "index.mjs",
   "scripts": {
     "test": "standard && node --experimental-modules mocha.mjs tests/*.test.mjs"
   },
