@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { EventEmitter } from 'events'
 
 /**
  * load text file
@@ -92,4 +93,39 @@ const ls = (dirPath, options) => {
   return res
 }
 
-export { load, save, initFile, mkdir, getPathBase, ls }
+const Event = (props = {}) => {
+  const maxListeners = props.maxListeners || 0
+  const emitter = new EventEmitter()
+
+  if (maxListeners > 0) {
+    emitter.setMaxListeners(maxListeners)
+  } // default is 10 if not set
+
+  function emit (eventName, ...args) {
+    emitter.emit(eventName, ...args)
+    return this
+  }
+
+  function on (eventName, fx) {
+    emitter.on(eventName, fx)
+    return this
+  }
+
+  function off (eventName, fx) {
+    emitter.on(eventName, fx)
+    return this
+  }
+
+  function once (eventName, fx) {
+    emitter.once(eventName, fx)
+    return this
+  }
+
+  function listeners (eventName) {
+    return emitter.listeners(eventName)
+  }
+
+  return Object.freeze({ emit, on, off, once, listeners })
+}
+
+export { load, save, initFile, mkdir, getPathBase, ls, Event }

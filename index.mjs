@@ -1,3 +1,3 @@
-import { load, save, initFile, mkdir, getPathBase, ls } from './src/coreFs.mjs'
+import { load, save, initFile, mkdir, getPathBase, ls, Event } from './src/coreboxFs.mjs'
 
-export { load, save, initFile, mkdir, getPathBase, ls }
+export { load, save, initFile, mkdir, getPathBase, ls, Event }

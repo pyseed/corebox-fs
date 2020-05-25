@@ -1,12 +1,12 @@
 import chai from 'chai'
 import sinon from 'sinon'
 import fs from 'fs'
-import { load, save, initFile, mkdir, getPathBase, ls } from '../src/coreFs.mjs'
+import { load, save, initFile, mkdir, getPathBase, ls, Event } from '../src/coreboxFs.mjs'
 
 const assert = chai.assert
 const expect = chai.expect
 
-suite('core-fs', () => {
+suite('corebox-fs', () => {
   teardown(() => {
     sinon.restore()
   })
@@ -180,6 +180,30 @@ suite('core-fs', () => {
       sinon.assert.calledWithExactly(fs.readdirSync, basePath)
       sinon.assert.calledWithExactly(fs.statSync, filePath)
       assert.deepEqual(res, [])
+    })
+  })
+
+  suite('Event', () => {
+    test('init default', async () => {
+      const o = Event()
+
+      assert.isFunction(o.emit)
+      assert.isFunction(o.on)
+      assert.isFunction(o.off)
+      assert.isFunction(o.once)
+      assert.isFunction(o.listeners)
+    })
+
+    test('on / emit', async () => {
+      let message = ''
+
+      const o = Event()
+      const onRes = o.on('message', msg => { message = msg })
+      assert.equal(onRes, o)
+
+      const onEmit = await o.emit('message', 'foobar')
+      assert.strictEqual(message, 'foobar')
+      assert.equal(onEmit, o)
     })
   })
 })
