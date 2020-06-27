@@ -101,24 +101,24 @@ const Event = (props = {}) => {
     emitter.setMaxListeners(maxListeners)
   } // default is 10 if not set
 
-  function emit (eventName, ...args) {
+  const emit = (eventName, ...args) => {
     emitter.emit(eventName, ...args)
-    return this
+    return Object.freeze({ emit })
   }
 
-  function on (eventName, fx) {
+  const on = (eventName, fx) => {
     emitter.on(eventName, fx)
-    return this
+    return Object.freeze({ on, off, once })
   }
 
-  function off (eventName, fx) {
+  const off = (eventName, fx) => {
     emitter.on(eventName, fx)
-    return this
+    return Object.freeze({ on, off, once })
   }
 
-  function once (eventName, fx) {
+  const once = (eventName, fx) => {
     emitter.once(eventName, fx)
-    return this
+    return Object.freeze({ on, off, once })
   }
 
   function listeners (eventName) {

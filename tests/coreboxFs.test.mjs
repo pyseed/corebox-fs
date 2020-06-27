@@ -198,12 +198,10 @@ suite('corebox-fs', () => {
       let message = ''
 
       const o = Event()
-      const onRes = o.on('message', msg => { message = msg })
-      assert.equal(onRes, o)
+      o.on('message', msg => { message = msg })
 
-      const onEmit = await o.emit('message', 'foobar')
+      await o.emit('message', 'foobar')
       assert.strictEqual(message, 'foobar')
-      assert.equal(onEmit, o)
     })
   })
 })
