@@ -93,39 +93,39 @@ const ls = (dirPath, options) => {
   return res
 }
 
-const Event = (props = {}) => {
-  const maxListeners = props.maxListeners || 0
-  const emitter = new EventEmitter()
+class Event { // EventEmitter composition
+  constructor (props = {}) {
+    this.maxListeners = props.maxListeners || 0
+    this.emitter = new EventEmitter()
 
-  if (maxListeners > 0) {
-    emitter.setMaxListeners(maxListeners)
-  } // default is 10 if not set
-
-  const emit = (eventName, ...args) => {
-    emitter.emit(eventName, ...args)
-    return Object.freeze({ emit })
+    if (this.maxListeners > 0) {
+      this.emitter.setMaxListeners(this.maxListeners)
+    } // default is 10 if not set
   }
 
-  const on = (eventName, fx) => {
-    emitter.on(eventName, fx)
-    return Object.freeze({ on, off, once })
+  emit (eventName, ...args) {
+    this.emitter.emit(eventName, ...args)
+    return this
   }
 
-  const off = (eventName, fx) => {
-    emitter.on(eventName, fx)
-    return Object.freeze({ on, off, once })
+  on (eventName, fx) {
+    this.emitter.on(eventName, fx)
+    return this
   }
 
-  const once = (eventName, fx) => {
-    emitter.once(eventName, fx)
-    return Object.freeze({ on, off, once })
+  off (eventName, fx) {
+    this.emitter.on(eventName, fx)
+    return this
   }
 
-  function listeners (eventName) {
-    return emitter.listeners(eventName)
+  once (eventName, fx) {
+    this.emitter.once(eventName, fx)
+    return this
   }
 
-  return Object.freeze({ emit, on, off, once, listeners })
+  listeners (eventName) {
+    return this.emitter.listeners(eventName)
+  }
 }
 
 export { load, save, initFile, mkdir, getPathBase, ls, Event }

@@ -185,7 +185,7 @@ suite('corebox-fs', () => {
 
   suite('Event', () => {
     test('init default', async () => {
-      const o = Event()
+      const o = new Event()
 
       assert.isFunction(o.emit)
       assert.isFunction(o.on)
@@ -197,7 +197,7 @@ suite('corebox-fs', () => {
     test('on / emit', async () => {
       let message = ''
 
-      const o = Event()
+      const o = new Event()
       o.on('message', msg => { message = msg })
 
       await o.emit('message', 'foobar')
