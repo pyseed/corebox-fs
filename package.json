@@ -9,7 +9,7 @@
   "main": "./index.mjs",
   "exports": "./index.mjs",
   "scripts": {
-    "test": "standard && node --experimental-modules mocha.mjs tests/*.test.mjs"
+    "test": "standard; node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
@@ -24,29 +24,29 @@
   "homepage": "https://github.com/pyseed/corebox-fs/blob/master/README.md",
   "standard": {
     "globals": [
-      "suite",
-      "test",
-      "suiteSetup",
-      "suiteTeardown",
-      "setup",
-      "teardown",
-      "describe",
-      "context",
-      "it",
-      "specify",
-      "before",
-      "after",
+      "jest",
+      "expect",
+      "beforeAll",
+      "afterAll",
       "beforeEach",
-      "afterEach"
+      "afterEach",
+      "describe",
+      "it",
+      "test"
     ]
   },
+  "jest": {
+    "testEnvironment": "jest-environment-node",
+    "transform": {},
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$",
+    "verbose": false
+  },
   "dependencies": {
-    "@bundled-es-modules/uuid": "^3.3.2",
-    "mocha": "^7.1.2"
+    "@bundled-es-modules/uuid": "^3.3.2"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "sinon": "^7.4.0",
+    "jest": "^26.5.2",
+    "mock-fs": "^4.13.0",
     "standard": "^14.3.1"
   }
 }
