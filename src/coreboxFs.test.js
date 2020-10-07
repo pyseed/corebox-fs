@@ -1,7 +1,7 @@
 // import { jest } from '@jest/globals'
 import fs from 'fs'
 import mock from 'mock-fs'
-import { load, save, initFile, mkdir, getPathBase, ls, Event } from '../src/coreboxFs.mjs'
+import { load, save, initFile, mkdir, getPathBase, ls, Event } from './coreboxFs.mjs'
 
 const checkFile = (filePath, expectedContent) => {
   const content = fs.readFileSync(filePath, { encoding: 'utf-8' })
